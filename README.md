@@ -6,17 +6,22 @@
 
 *Note: I'm planning to revise this and looking for a new co-author to help with expanding this into a more comprehensive guide. While it's very popular, it could be broader and a bit deeper. If you like to write and are close to being an expert on this material and willing to consider helping, please drop me a note at josh (0x40) holloway.com. –[jlevy](https://github.com/jlevy), [Holloway](https://www.holloway.com). Thank you!*
 
-- [Meta](#meta)
-- [Basics](#basics)
-- [Everyday use](#everyday-use)
-- [Processing files and data](#processing-files-and-data)
-- [System debugging](#system-debugging)
-- [One-liners](#one-liners)
-- [Obscure but useful](#obscure-but-useful)
-- [macOS only](#macos-only)
-- [Windows only](#windows-only)
-- [More resources](#more-resources)
-- [Disclaimer](#disclaimer)
+- [The Art of Command Line](#the-art-of-command-line)
+  - [Meta](#meta)
+  - [Basics](#basics)
+  - [Everyday use](#everyday-use)
+  - [Processing files and data](#processing-files-and-data)
+  - [System debugging](#system-debugging)
+  - [One-liners](#one-liners)
+  - [Obscure but useful](#obscure-but-useful)
+  - [macOS only](#macos-only)
+  - [Windows only](#windows-only)
+    - [Ways to obtain Unix tools under Windows](#ways-to-obtain-unix-tools-under-windows)
+    - [Useful Windows command-line tools](#useful-windows-command-line-tools)
+    - [Cygwin tips and tricks](#cygwin-tips-and-tricks)
+  - [More resources](#more-resources)
+  - [Disclaimer](#disclaimer)
+  - [License](#license)
 
 
 ![curl -s 'https://raw.githubusercontent.com/jlevy/the-art-of-command-line/master/README.md' | egrep -o '`\w+`' | tr -d '`' | cowsay -W50](cowsay.png)
@@ -57,28 +62,36 @@ Notes:
   - Know that some commands are not executables, but Bash builtins, and that you can get help on them with `help` and `help -d`. You can find out whether a command is an executable, shell builtin or an alias by using `type command`.
   - `curl cheat.sh/command` will give a brief "cheat sheet" with common examples of how to use a shell command.
 
-- Learn about redirection of output and input using `>` and `<` and pipes using `|`. Know `>` overwrites the output file and `>>` appends. Learn about stdout and stderr.
+- Learn about redirection of output and input using `>` and `<` and pipes using `|`. Know `>` overwrites the output file and `>>` appends. Learn about stdout and stderr **https://www.howtogeek.com/435903/what-are-stdin-stdout-and-stderr-on-linux/**.
 
-- Learn about file glob expansion with `*` (and perhaps `?` and `[`...`]`) and quoting and the difference between double `"` and single `'` quotes. (See more on variable expansion below.)
+- Learn about file glob expansion with `*` (and perhaps `?` and `[`...`]`) and quoting and the difference between double `"` and single `'` quotes **https://stackoverflow.com/questions/6697753/difference-between-single-and-double-quotes-in-bash**. (See more on variable expansion below.)
 
 - Be familiar with Bash job management: `&`, **ctrl-z**, **ctrl-c**, `jobs`, `fg`, `bg`, `kill`, etc.
 
 - Know `ssh`, and the basics of passwordless authentication, via `ssh-agent`, `ssh-add`, etc.
 
-- Basic file management: `ls` and `ls -l` (in particular, learn what every column in `ls -l` means), `less`, `head`, `tail` and `tail -f` (or even better, `less +F`), `ln` and `ln -s` (learn the differences and advantages of hard versus soft links), `chown`, `chmod`, `du` (for a quick summary of disk usage: `du -hs *`). For filesystem management, `df`, `mount`, `fdisk`, `mkfs`, `lsblk`. Learn what an inode is (`ls -i` or `df -i`).
+- Basic file management: `ls` and `ls -l` (in particular, learn what every column in `ls -l` means), `less`, `head`, `tail` and `tail -f` (or even better, `less +F`), `ln` and `ln -s` (learn the differences and advantages of hard versus soft links  
+  **https://www.redhat.com/sysadmin/linking-linux-explained**  
+  <img src="soft_vs_hard_links.jpg" width="500">), `chown`, `chmod`, `du` (for a quick summary of disk usage: `du -hs *`). For filesystem management, `df`, `mount`, `fdisk`, `mkfs`, `lsblk`. Learn what an inode is (`ls -i` or `df -i` **https://www.redhat.com/sysadmin/inodes-linux-filesystem**).
 
 - Basic network management: `ip` or `ifconfig`, `dig`, `traceroute`, `route`.
 
 - Learn and use a version control management system, such as `git`.
 
-- Know regular expressions well, and the various flags to `grep`/`egrep`. The `-i`, `-o`, `-v`, `-A`, `-B`, and `-C` options are worth knowing.
+- Know regular expressions well, and the various flags to `grep`/`egrep`. 
+    - `-i` (Perform case insensitive matching.), 
+    - `-o` (Prints only the matching part of the lines.), 
+    - `-v` (Selected lines are those not matching any of the specified patterns.), 
+    - `-A` (Print num lines of trailing context **after** each match.), 
+    - `-B` (Print num lines of leading context **before** each match.), 
+    - `-C` (Print num lines of leading and trailing context **surrounding** each match (use array []).).
 
 - Learn to use `apt-get`, `yum`, `dnf` or `pacman` (depending on distro) to find and install packages. And make sure you have `pip` to install Python-based command-line tools (a few below are easiest to install via `pip`).
 
 
 ## Everyday use
 
-- In Bash, use **Tab** to complete arguments or list all available commands and **ctrl-r** to search through command history (after pressing, type to search, press **ctrl-r** repeatedly to cycle through more matches, press **Enter** to execute the found command, or hit the right arrow to put the result in the current line to allow editing).
+- In Bash, use **Tab** to complete arguments or list all available commands and **`ctrl-r` to search through command history (after pressing, type to search, press **ctrl-r** repeatedly to cycle through more matches, press **Enter** to execute the found command, or hit the right arrow to put the result in the current line to allow editing).**
 
 - In Bash, use **ctrl-w** to delete the last word, and **ctrl-u** to delete the content from current cursor back to the start of the line. Use **alt-b** and **alt-f** to move by word, **ctrl-a** to move cursor to beginning of line,  **ctrl-e** to move cursor to end of line, **ctrl-k** to kill to the end of the line, **ctrl-l** to clear the screen. See `man readline` for all the default keybindings in Bash. There are a lot. For example **alt-.** cycles through previous arguments, and **alt-*** expands a glob.
 
