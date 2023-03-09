@@ -62,53 +62,54 @@ Notes:
   - Know that some commands are not executables, but Bash builtins, and that you can get help on them with `help` and `help -d`. You can find out whether a command is an executable, shell builtin or an alias by using `type command`.
   - `curl cheat.sh/command` will give a brief "cheat sheet" with common examples of how to use a shell command.
 
-- Learn about redirection of output and input using `>` and `<` and pipes using `|`. Know `>` overwrites the output file and `>>` appends. Learn about stdout and stderr **https://www.howtogeek.com/435903/what-are-stdin-stdout-and-stderr-on-linux/**.
+- Learn about redirection of output and input using `>` and `<` and pipes using `|`. Know `>` overwrites the output file and `>>` appends. Learn about [stdout and stderr](https://www.howtogeek.com/435903/what-are-stdin-stdout-and-stderr-on-linux/).
 
-- Learn about file glob expansion with `*` (and perhaps `?` and `[`...`]`) and quoting and the difference between double `"` and single `'` quotes **https://stackoverflow.com/questions/6697753/difference-between-single-and-double-quotes-in-bash**. (See more on variable expansion below.)
+- Learn about file glob expansion with `*` (and perhaps `?` and `[`...`]`) and quoting and the difference between [double `"` and single `'` quotes](https://stackoverflow.com/questions/6697753/difference-between-single-and-double-quotes-in-bash). (See more on variable expansion below.)
 
 - Be familiar with Bash job management: `&`, **ctrl-z**, **ctrl-c**, `jobs`, `fg`, `bg`, `kill`, etc.
 
 - Know `ssh`, and the basics of passwordless authentication, via `ssh-agent`, `ssh-add`, etc.
 
-- Basic file management: `ls` and `ls -l` (in particular, learn what every column in `ls -l` means), `less`, `head`, `tail` and `tail -f` (or even better, `less +F`), `ln` and `ln -s` (learn the differences and advantages of hard versus soft links  
-  **https://www.redhat.com/sysadmin/linking-linux-explained**  
-  <img src="soft_vs_hard_links.jpg" width="500">), `chown`, `chmod`, `du` (for a quick summary of disk usage: `du -hs *`). For filesystem management, `df`, `mount`, `fdisk`, `mkfs`, `lsblk`. Learn what an inode is (`ls -i` or `df -i` **https://www.redhat.com/sysadmin/inodes-linux-filesystem**).
+- Basic file management: `ls` and `ls -l` (in particular, learn what every column in `ls -l` means), `less`, `head`, `tail` and `tail -f` (or even better, `less +F`), `ln` and `ln -s`.  
+ (learn the differences and [advantages of hard versus soft links](https://www.redhat.com/sysadmin/linking-linux-explained))  
+ <img src="soft_vs_hard_links.jpg" width="500">  
+ `chown`, `chmod`, `du` (for a quick summary of disk usage: `du -hs *`). For filesystem management, `df`, `mount`, `fdisk`, `mkfs`, `lsblk`. Learn what an [inode](https://www.redhat.com/sysadmin/inodes-linux-filesystem) is (`ls -i` or `df -i`).
 
 - Basic network management: `ip` or `ifconfig`, `dig`, `traceroute`, `route`.
 
 - Learn and use a version control management system, such as `git`.
 
 - Know regular expressions well, and the various flags to `grep`/`egrep`. 
-    - `-i` (Perform case insensitive matching.), 
-    - `-o` (Prints only the matching part of the lines.), 
-    - `-v` (Selected lines are those not matching any of the specified patterns.), 
-    - `-A` (Print num lines of trailing context **after** each match.), 
-    - `-B` (Print num lines of leading context **before** each match.), 
-    - `-C` (Print num lines of leading and trailing context **surrounding** each match (use array []).).
+    >- `-i` (Perform case insensitive matching.), 
+    >- `-o` (Prints only the matching part of the lines.), 
+    >- `-v` (Selected lines are those not matching any of the specified patterns.), 
+    >- `-A` (Print num lines of trailing context **after** each match.), 
+    >- `-B` (Print num lines of leading context **before** each match.), 
+    >- `-C` (Print num lines of leading and trailing context **surrounding** each match (use array []).).
 
 - Learn to use `apt-get`, `yum`, `dnf` or `pacman` (depending on distro) to find and install packages. And make sure you have `pip` to install Python-based command-line tools (a few below are easiest to install via `pip`).
 
 
 ## Everyday use
 
-- In Bash, use **Tab** to complete arguments or list all available commands and **`ctrl-r` to search through command history (after pressing, type to search, press **ctrl-r** repeatedly to cycle through more matches, press **Enter** to execute the found command, or hit the right arrow to put the result in the current line to allow editing).**
+>- In Bash, use **Tab** to complete arguments or list all available commands and **ctrl-r to search through command history (after pressing, type to search, press **ctrl-r** repeatedly to cycle through more matches, press **Enter** to execute the found command, or hit the right arrow to put the result in the current line to allow editing).**
 
-- In Bash, use **ctrl-w** to delete the last word, and **ctrl-u** to delete the content from current cursor back to the start of the line. Use **alt-b** and **alt-f** to move by word, **ctrl-a** to move cursor to beginning of line,  **ctrl-e** to move cursor to end of line, **ctrl-k** to kill to the end of the line, **ctrl-l** to clear the screen. See `man readline` for all the default keybindings in Bash. There are a lot. For example **alt-.** cycles through previous arguments, and **alt-*** expands a glob.
+>- In Bash, use **ctrl-w** to delete the last word, and **ctrl-u** to delete the content from current cursor back to the start of the line. Use **alt-b** and **alt-f** to move by word, **ctrl-a** to move cursor to beginning of line,  **ctrl-e** to move cursor to end of line, **ctrl-k** to kill to the end of the line, **ctrl-l** to clear the screen. See `man readline` for all the default keybindings in Bash. There are a lot. For example **alt-.** cycles through previous arguments, and **alt-*** expands a glob.
 
 
 - Alternatively, if you love vi-style key-bindings, use `set -o vi` (and `set -o emacs` to put it back).
 
 - For editing long commands, after setting your editor (for example `export EDITOR=vim`), **ctrl-x** **ctrl-e** will open the current command in an editor for multi-line editing. Or in vi style, **escape-v**.
 
-- To see recent commands, use `history`. Follow with `!n` (where `n` is the command number) to execute again. There are also many abbreviations you can use, the most useful probably being `!$` for last argument and `!!` for last command (see "HISTORY EXPANSION" in the man page). However, these are often easily replaced with **ctrl-r** and **alt-.**.
+- To see recent commands, use `history`. Follow with `!n` (where `n` is the command number saved in the history starting from the leasst recent) to execute again. There are also many abbreviations you can use, the most useful probably being `!$` for last argument (gives the last argument given to a command) and `!!` for last command (see "HISTORY EXPANSION" in the man page). However, these are often easily replaced with **ctrl-r** and **alt-.**.
 
 - Go to your home directory with `cd`. Access files relative to your home directory with the `~` prefix (e.g. `~/.bashrc`). In `sh` scripts refer to the home directory as `$HOME`.
 
-- To go back to the previous working directory: `cd -`.
+>- To go back to the previous working directory: `cd -`.
 
 - If you are halfway through typing a command but change your mind, hit **alt-#** to add a `#` at the beginning and enter it as a comment (or use **ctrl-a**, **#**, **enter**). You can then return to it later via command history.
 
-- Use `xargs` (or `parallel`). It's very powerful. Note you can control how many items execute per line (`-L`) as well as parallelism (`-P`). If you're not sure if it'll do the right thing, use `xargs echo` first. Also, `-I{}` is handy. Examples:
+- Use [`xargs`](https://www.howtogeek.com/435164/how-to-use-the-xargs-command-on-linux/) (or `parallel`). It's very powerful, need to string some Linux commands together, but one of them doesn’t accept piped input? xargs can take the output from one command and send it to another command as parameters. Note you can control how many items execute per line (`-L`) as well as parallelism (`-P`). If you're not sure if it'll do the right thing, use `xargs echo` first. Also, `-I{}` is handy. Examples:
 ```bash
       find . -name '*.py' | xargs grep some_function
       cat hosts | xargs -I{} ssh root@{} hostname
@@ -157,10 +158,10 @@ Notes:
 
 - The order of expansions is: brace expansion; tilde expansion, parameter and variable expansion, arithmetic expansion, and command substitution (done in a left-to-right fashion); word splitting; and filename expansion. (For example, a range like `{1..20}` cannot be expressed with variables using `{$a..$b}`. Use `seq` or a `for` loop instead, e.g., `seq $a $b` or `for((i=a; i<=b; i++)); do ... ; done`.)
 
-- The output of a command can be treated like a file via `<(some command)` (known as process substitution). For example, compare local `/etc/hosts` with a remote one:
-```sh
-      diff /etc/hosts <(ssh somehost cat /etc/hosts)
-```
+>- The output of a command can be treated like a file via `<(some command)` (known as process substitution). For example, compare local `/etc/hosts` with a remote one:
+>```sh
+>      diff /etc/hosts <(ssh somehost cat /etc/hosts)
+>```
 
 - When writing scripts you may want to put all of your code in curly braces. If the closing brace is missing, your script will be prevented from executing due to a syntax error. This makes sense when your script is going to be downloaded from the web, since it prevents partially downloaded scripts from executing:
 ```bash
